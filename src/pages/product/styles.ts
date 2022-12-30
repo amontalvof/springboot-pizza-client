@@ -68,7 +68,7 @@ export const Choose = styled.h3`
 `;
 
 export const Sizes = styled.div`
-    width: 40%;
+    width: 50%;
     display: flex;
     justify-content: space-between;
 
@@ -83,6 +83,7 @@ export const Size = styled.div`
     height: 30px;
     position: relative;
     cursor: pointer;
+
     :nth-child(2) {
         width: 40px;
         height: 40px;

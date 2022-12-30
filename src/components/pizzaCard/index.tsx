@@ -1,24 +1,25 @@
 import { Container, Desc, Image, Price, Title } from './styles';
-import pizza from '../../assets/img/pizza.png';
 import { FormattedNumber } from 'react-intl';
+import IPizza from '../../types/pizza';
+import { Link } from 'react-router-dom';
 
-const PizzaCard = () => {
+const PizzaCard = ({ pizza }: { pizza: IPizza }) => {
+    const prices = JSON.parse(pizza.prices);
     return (
         <Container>
-            <Image src={pizza} alt="pizza" />
-            <Title>FIORI DI ZUCCA</Title>
+            <Link to={`/product/${pizza.id}`}>
+                <Image src={pizza.img} alt="pizza" />
+            </Link>
+            <Title>{pizza.title}</Title>
             <Price>
                 <FormattedNumber
-                    value={19.99}
+                    value={prices[0]}
                     // eslint-disable-next-line react/style-prop-object
                     style="currency"
                     currency="USD"
                 />
             </Price>
-            <Desc>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Quaerat, voluptas!
-            </Desc>
+            <Desc>{pizza.description}</Desc>
         </Container>
     );
 };

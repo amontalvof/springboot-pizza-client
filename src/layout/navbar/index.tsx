@@ -9,6 +9,7 @@ import {
     Item,
     List,
     ListItem,
+    StyledLink,
     Text,
     Texts,
 } from './styles';
@@ -27,11 +28,10 @@ const Navbar = () => {
             </Item>
             <Item>
                 <List>
-                    <ListItem>Homepage</ListItem>
+                    <ListItem>
+                        <StyledLink to="/">Homepage</StyledLink>
+                    </ListItem>
                     <ListItem>Products</ListItem>
-                    <ListItem>Menu</ListItem>
-                    <ListItem>Events</ListItem>
-                    <ListItem>Blog</ListItem>
                     <ListItem>Contact</ListItem>
                 </List>
             </Item>

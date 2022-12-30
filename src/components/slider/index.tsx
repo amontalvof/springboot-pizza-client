@@ -37,7 +37,7 @@ const Slider = () => {
             <Wrapper style={{ transform: `translateX(${-100 * index}vw)` }}>
                 {images.map((image, i) => (
                     <ImgContainer key={`slider-image-${i}`}>
-                        <Image src={image} />
+                        <Image src={image} alt="slider" />
                     </ImgContainer>
                 ))}
             </Wrapper>

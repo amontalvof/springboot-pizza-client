@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { RED, WHITE } from '../../constants/colors';
 
@@ -101,4 +102,12 @@ export const Counter = styled.div`
     justify-content: center;
     font-weight: bold;
     color: ${RED};
+`;
+
+export const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: ${WHITE};
+    :hover {
+        color: ${WHITE};
+    }
 `;

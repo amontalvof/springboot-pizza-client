@@ -10,7 +10,7 @@ const Footer = () => {
             <Item>
                 <Card>
                     <Motto>
-                        OH YES, WE DID.THE LAMA PIZZA, WELL BAKED SLICE OF
+                        OH YES, WE DID. THE BEST PIZZA, WELL BAKED SLICE OF
                         PIZZA.
                     </Motto>
                 </Card>
