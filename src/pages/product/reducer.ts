@@ -1,19 +1,22 @@
-import IExtraOption from '../../types/extraOptions';
-
-interface IState {
-    price: number;
-    size: string;
-    extras: IExtraOption[] | [];
-    quantity: number;
-}
+import IProduct from '../../types/product';
 
 interface IAction {
-    type: 'SET_SIZE' | 'SET_EXTRAS' | 'SET_QUANTITY' | 'SET_PRICE';
+    type:
+        | 'SET_SIZE'
+        | 'SET_EXTRAS'
+        | 'SET_QUANTITY'
+        | 'SET_PRICE'
+        | 'SET_NAME'
+        | 'SET_IMG';
     payload?: any;
 }
 
-const reducer = (state: IState, action: IAction) => {
+const reducer = (state: IProduct, action: IAction) => {
     switch (action.type) {
+        case 'SET_NAME':
+            return { ...state, name: action.payload.name };
+        case 'SET_IMG':
+            return { ...state, image: action.payload.image };
         case 'SET_SIZE':
             return { ...state, size: action.payload.size };
         case 'SET_PRICE':

@@ -10,6 +10,7 @@ import {
 export const Container = styled.div`
     padding: 50px;
     display: flex;
+    flex-wrap: wrap;
     background-color: ${LIGHT_BLACK};
 
     @media screen and (max-width: 480px) {

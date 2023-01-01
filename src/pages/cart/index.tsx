@@ -1,7 +1,7 @@
 import { FormattedNumber } from 'react-intl';
-import pizza from '../../assets/img/pizza.png';
 import Button from '../../components/button';
 import { LIGHT_BLACK, RED } from '../../constants/colors';
+import { useContext } from 'react';
 import {
     Container,
     Extras,
@@ -19,8 +19,17 @@ import {
     Tr,
     Wrapper,
 } from './styles';
+import { StorageCartContext } from '../../context/storageCart';
 
 const Cart = () => {
+    const {
+        state: { products },
+    } = useContext(StorageCartContext);
+    const subTotal = products.reduce((acc, product) => {
+        return acc + product.price * product.quantity;
+    }, 0);
+    const discount = products.length > 0 ? (10 * subTotal) / 100 : 0;
+    const total = subTotal - discount;
     return (
         <Container>
             <Left>
@@ -34,42 +43,55 @@ const Cart = () => {
                             <Th>Quantity</Th>
                             <Th>Total</Th>
                         </Tr>
-                        <Tr>
-                            <td>
-                                <ImgContainer>
-                                    <Image src={pizza} alt="pizza" />
-                                </ImgContainer>
-                            </td>
-                            <td>
-                                <Name>CORALZO</Name>
-                            </td>
-                            <td>
-                                <Extras>Double Ingredients, Spicy Sauce</Extras>
-                            </td>
-                            <td>
-                                <Price>
-                                    <FormattedNumber
-                                        value={19.99}
-                                        // eslint-disable-next-line react/style-prop-object
-                                        style="currency"
-                                        currency="USD"
-                                    />
-                                </Price>
-                            </td>
-                            <td>
-                                <Quantity>2</Quantity>
-                            </td>
-                            <td>
-                                <Total>
-                                    <FormattedNumber
-                                        value={39.99}
-                                        // eslint-disable-next-line react/style-prop-object
-                                        style="currency"
-                                        currency="USD"
-                                    />
-                                </Total>
-                            </td>
-                        </Tr>
+                        {products.map((product, index) => {
+                            const newExtras = product.extras.map(
+                                (item) => item.text
+                            );
+                            return (
+                                <Tr key={`product-cart-${index}`}>
+                                    <td>
+                                        <ImgContainer>
+                                            <Image
+                                                src={product.image}
+                                                alt="pizza"
+                                            />
+                                        </ImgContainer>
+                                    </td>
+                                    <td>
+                                        <Name>{product.name}</Name>
+                                    </td>
+                                    <td>
+                                        <Extras>{newExtras.join(', ')}</Extras>
+                                    </td>
+                                    <td>
+                                        <Price>
+                                            <FormattedNumber
+                                                value={product.price}
+                                                // eslint-disable-next-line react/style-prop-object
+                                                style="currency"
+                                                currency="USD"
+                                            />
+                                        </Price>
+                                    </td>
+                                    <td>
+                                        <Quantity>{product.quantity}</Quantity>
+                                    </td>
+                                    <td>
+                                        <Total>
+                                            <FormattedNumber
+                                                value={
+                                                    product.price *
+                                                    product.quantity
+                                                }
+                                                // eslint-disable-next-line react/style-prop-object
+                                                style="currency"
+                                                currency="USD"
+                                            />
+                                        </Total>
+                                    </td>
+                                </Tr>
+                            );
+                        })}
                     </tbody>
                 </Table>
             </Left>
@@ -79,7 +101,7 @@ const Cart = () => {
                     <div>
                         <TotalTextTitle>Subtotal:&nbsp;</TotalTextTitle>
                         <FormattedNumber
-                            value={79.99}
+                            value={subTotal}
                             // eslint-disable-next-line react/style-prop-object
                             style="currency"
                             currency="USD"
@@ -88,7 +110,7 @@ const Cart = () => {
                     <div>
                         <TotalTextTitle>Discount:&nbsp;</TotalTextTitle>
                         <FormattedNumber
-                            value={0}
+                            value={discount}
                             // eslint-disable-next-line react/style-prop-object
                             style="currency"
                             currency="USD"
@@ -97,7 +119,7 @@ const Cart = () => {
                     <div>
                         <TotalTextTitle>Total:&nbsp;</TotalTextTitle>
                         <FormattedNumber
-                            value={79.99}
+                            value={total}
                             // eslint-disable-next-line react/style-prop-object
                             style="currency"
                             currency="USD"

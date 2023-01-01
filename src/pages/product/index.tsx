@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useMemo, useReducer } from 'react';
+import { ChangeEvent, useContext, useEffect, useMemo, useReducer } from 'react';
 import { FormattedNumber } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import sizeImg from '../../assets/img/size_color.png';
@@ -29,10 +29,14 @@ import {
     Quantity,
     Button,
 } from './styles';
+import { StorageCartContext } from '../../context/storageCart';
 
 const sizeMap = ['Small', 'Medium', 'Large'];
 
 const Product = () => {
+    const {
+        reducers: { addProduct },
+    } = useContext(StorageCartContext);
     const { productId = '' } = useParams();
     const { isLoading: loadingProduct, data: valueProduct = {} } =
         useReadProduct(`products/${productId}`);
@@ -58,6 +62,24 @@ const Product = () => {
             prices[sizeMap.indexOf(state.size)];
         dispatch({ type: 'SET_SIZE', payload: { size: sizeName } });
         changePrice(difference);
+    };
+
+    const changeName = (name: string) => {
+        dispatch({
+            type: 'SET_NAME',
+            payload: {
+                name,
+            },
+        });
+    };
+
+    const changeImage = (image: string) => {
+        dispatch({
+            type: 'SET_IMG',
+            payload: {
+                image,
+            },
+        });
     };
 
     const changePrice = (number: number, isFromEffect?: boolean) => {
@@ -101,8 +123,14 @@ const Product = () => {
         });
     };
 
+    const handleAddToCart = () => {
+        addProduct(state);
+    };
+
     useEffect(() => {
         changePrice(prices[0], true);
+        changeName(valueProduct.title);
+        changeImage(valueProduct.img);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [prices]);
 
@@ -175,7 +203,9 @@ const Product = () => {
                                 value={state.quantity}
                                 onChange={handleQuantity}
                             />
-                            <Button>Add to Cart</Button>
+                            <Button onClick={handleAddToCart}>
+                                Add to Cart
+                            </Button>
                         </Add>
                     </Right>
                 </>

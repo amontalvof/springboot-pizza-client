@@ -7,7 +7,7 @@ interface StyledButtonProps {
 
 export const StyledButton = styled.button<StyledButtonProps>`
     background-color: transparent;
-    height: 40px;
+    height: 50px;
     font-weight: bold;
     font-size: 16px;
     font-family: 'Merienda', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',

@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { StorageCartContext } from '../../context/storageCart';
 import telephone from '../../assets/img/telephone.png';
 import cart from '../../assets/img/cart.png';
 import {
@@ -13,8 +15,13 @@ import {
     Text,
     Texts,
 } from './styles';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
+    const {
+        state: { quantity },
+    } = useContext(StorageCartContext);
+
     return (
         <Container>
             <Item>
@@ -36,10 +43,12 @@ const Navbar = () => {
                 </List>
             </Item>
             <Item>
-                <Cart>
-                    <Image src={cart} alt="cart" />
-                    <Counter>2</Counter>
-                </Cart>
+                <Link to="/cart">
+                    <Cart>
+                        <Image src={cart} alt="cart" />
+                        <Counter>{quantity}</Counter>
+                    </Cart>
+                </Link>
             </Item>
         </Container>
     );
