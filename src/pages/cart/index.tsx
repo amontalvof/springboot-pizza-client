@@ -1,7 +1,10 @@
 import { FormattedNumber } from 'react-intl';
 import Button from '../../components/button';
 import { LIGHT_BLACK, RED } from '../../constants/colors';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
+import { StorageCartContext } from '../../context/storageCart';
+import useDisableBodyScroll from '../../hooks/useDisableBodyScroll';
+import PaymentModal from '../../components/paymentModal';
 import {
     Container,
     Extras,
@@ -17,11 +20,14 @@ import {
     Total,
     TotalTextTitle,
     Tr,
+    Td,
     Wrapper,
 } from './styles';
-import { StorageCartContext } from '../../context/storageCart';
 
 const Cart = () => {
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    useDisableBodyScroll(isOpenModal);
+
     const {
         state: { products },
     } = useContext(StorageCartContext);
@@ -30,6 +36,13 @@ const Cart = () => {
     }, 0);
     const discount = products.length > 0 ? (10 * subTotal) / 100 : 0;
     const total = subTotal - discount;
+
+    const handleCheckout = () => {
+        if (products.length) {
+            setIsOpenModal(true);
+        }
+    };
+
     return (
         <Container>
             <Left>
@@ -49,21 +62,21 @@ const Cart = () => {
                             );
                             return (
                                 <Tr key={`product-cart-${index}`}>
-                                    <td>
+                                    <Td>
                                         <ImgContainer>
                                             <Image
                                                 src={product.image}
                                                 alt="pizza"
                                             />
                                         </ImgContainer>
-                                    </td>
-                                    <td>
+                                    </Td>
+                                    <Td>
                                         <Name>{product.name}</Name>
-                                    </td>
-                                    <td>
+                                    </Td>
+                                    <Td>
                                         <Extras>{newExtras.join(', ')}</Extras>
-                                    </td>
-                                    <td>
+                                    </Td>
+                                    <Td>
                                         <Price>
                                             <FormattedNumber
                                                 value={product.price}
@@ -72,11 +85,11 @@ const Cart = () => {
                                                 currency="USD"
                                             />
                                         </Price>
-                                    </td>
-                                    <td>
+                                    </Td>
+                                    <Td>
                                         <Quantity>{product.quantity}</Quantity>
-                                    </td>
-                                    <td>
+                                    </Td>
+                                    <Td>
                                         <Total>
                                             <FormattedNumber
                                                 value={
@@ -88,7 +101,7 @@ const Cart = () => {
                                                 currency="USD"
                                             />
                                         </Total>
-                                    </td>
+                                    </Td>
                                 </Tr>
                             );
                         })}
@@ -128,9 +141,19 @@ const Cart = () => {
                     <Button
                         text="CHECKOUT NOW!"
                         gradient={[LIGHT_BLACK, RED]}
-                    ></Button>
+                        onClick={handleCheckout}
+                        style={
+                            !products.length ? { cursor: 'not-allowed' } : {}
+                        }
+                    />
                 </Wrapper>
             </Right>
+            <PaymentModal
+                total={total}
+                products={products}
+                isOpenModal={isOpenModal}
+                setIsOpenModal={setIsOpenModal}
+            />
         </Container>
     );
 };

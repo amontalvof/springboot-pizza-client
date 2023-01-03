@@ -6,14 +6,23 @@ interface IButtonProps {
     gradient: string[];
     disabled?: boolean;
     onClick?: () => void;
+    type?: 'button' | 'submit' | 'reset';
 }
-const Button = ({ text, style, gradient, disabled, onClick }: IButtonProps) => {
+const Button = ({
+    type = 'button',
+    text,
+    style,
+    gradient,
+    disabled,
+    onClick,
+}: IButtonProps) => {
     return (
         <StyledButton
             style={style}
             gradient={gradient}
             disabled={disabled}
             onClick={onClick}
+            type={type}
         >
             <TextContainer>{text}</TextContainer>
         </StyledButton>

@@ -1,11 +1,5 @@
 import styled, { keyframes, css } from 'styled-components';
-import {
-    BLACK,
-    DARK_WHITE,
-    LIGHT_BLACK,
-    RED,
-    WHITE,
-} from '../../constants/colors';
+import { DARK_WHITE, LIGHT_BLACK, RED, WHITE } from '../../constants/colors';
 
 interface IStatusProps {
     status: string;
@@ -15,6 +9,7 @@ export const Container = styled.div`
     background-color: ${LIGHT_BLACK};
     padding: 50px;
     display: flex;
+    flex-wrap: wrap;
     @media screen and (max-width: 480px) {
         flex-direction: column;
         padding: 20px;
@@ -27,12 +22,6 @@ export const Left = styled.div`
     @media screen and (max-width: 480px) {
         margin-right: 0;
     }
-`;
-
-export const Right = styled.div`
-    flex: 1;
-    display: flex;
-    justify-content: center;
 `;
 
 export const Row = styled.div`
@@ -75,6 +64,12 @@ export const Tr = styled.tr`
     }
 `;
 
+export const Td = styled.td`
+    @media screen and (max-width: 480px) {
+        text-align: center;
+    }
+`;
+
 export const Th = styled.th`
     color: ${WHITE};
     @media screen and (max-width: 480px) {
@@ -94,21 +89,11 @@ export const Id = styled.span`
     }
 `;
 
-export const Customer = styled.span`
+export const Cell = styled.span`
     color: ${DARK_WHITE};
     @media screen and (max-width: 480px) {
         ::before {
-            content: 'Customer: ';
-            font-weight: 500;
-        }
-    }
-`;
-
-export const Address = styled.span`
-    color: ${DARK_WHITE};
-    @media screen and (max-width: 480px) {
-        ::before {
-            content: 'Address: ';
+            content: 'Orders: ';
             font-weight: 500;
         }
     }
@@ -125,25 +110,6 @@ export const Total = styled.span`
             font-weight: 500;
         }
     }
-`;
-
-export const Wrapper = styled.div`
-    background-color: ${DARK_WHITE};
-    color: ${BLACK};
-    width: 90%;
-    max-height: 300px;
-    padding: 10px 50px 50px 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    @media screen and (max-width: 480px) {
-        width: 100%;
-    }
-`;
-
-export const TotalTextTitle = styled.b`
-    margin-right: 10px;
 `;
 
 const inProgress = keyframes`

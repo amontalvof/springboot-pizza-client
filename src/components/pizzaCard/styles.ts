@@ -25,7 +25,7 @@ export const Title = styled.h1`
     font-weight: bold;
     color: ${RED};
     @media screen and (max-width: 480px) {
-        font-size: 30px;
+        font-size: 25px;
     }
 `;
 
@@ -34,7 +34,7 @@ export const Price = styled.span`
     font-weight: bold;
     color: ${WHITE};
     @media screen and (max-width: 480px) {
-        font-size: 24px;
+        font-size: 23px;
     }
 `;
 
@@ -42,6 +42,6 @@ export const Desc = styled.p`
     text-align: center;
     color: ${GREY};
     @media screen and (max-width: 480px) {
-        font-size: 24px;
+        font-size: 20px;
     }
 `;

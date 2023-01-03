@@ -7,12 +7,15 @@ interface IAction {
         | 'SET_QUANTITY'
         | 'SET_PRICE'
         | 'SET_NAME'
-        | 'SET_IMG';
+        | 'SET_IMG'
+        | 'SET_ID';
     payload?: any;
 }
 
 const reducer = (state: IProduct, action: IAction) => {
     switch (action.type) {
+        case 'SET_ID':
+            return { ...state, id: action.payload.id };
         case 'SET_NAME':
             return { ...state, name: action.payload.name };
         case 'SET_IMG':

@@ -82,6 +82,15 @@ const Product = () => {
         });
     };
 
+    const changeId = (id: number) => {
+        dispatch({
+            type: 'SET_ID',
+            payload: {
+                id,
+            },
+        });
+    };
+
     const changePrice = (number: number, isFromEffect?: boolean) => {
         dispatch({
             type: 'SET_PRICE',
@@ -131,6 +140,7 @@ const Product = () => {
         changePrice(prices[0], true);
         changeName(valueProduct.title);
         changeImage(valueProduct.img);
+        changeId(valueProduct.id);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [prices]);
 

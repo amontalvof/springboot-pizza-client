@@ -68,6 +68,12 @@ export const Tr = styled.tr`
     }
 `;
 
+export const Td = styled.td`
+    @media screen and (max-width: 480px) {
+        text-align: center;
+    }
+`;
+
 export const Th = styled.th`
     color: ${WHITE};
     @media screen and (max-width: 480px) {
