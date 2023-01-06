@@ -11,7 +11,7 @@ interface IStorageCartContext {
     state: IState;
     reducers: {
         addProduct: (product: IProduct) => void;
-        reset: () => void;
+        resetCart: () => void;
     };
 }
 
@@ -24,7 +24,7 @@ const getCartFromLocalStorage = () => {
 
 const StorageCartContext = createContext<IStorageCartContext>({
     state: { products: [], quantity: 0, total: 0 },
-    reducers: { addProduct: () => {}, reset: () => {} },
+    reducers: { addProduct: () => {}, resetCart: () => {} },
 });
 
 const StorageCartProvider = ({ children }: { children: ReactNode }) => {
@@ -55,19 +55,17 @@ const StorageCartProvider = ({ children }: { children: ReactNode }) => {
         setTotal((total) => total + product.price * product.quantity);
     };
 
-    const reset = () => {
+    const resetCart = () => {
         setProducts([]);
         setQuantity(0);
         setTotal(0);
     };
 
-    console.log({ state: { products, quantity, total } });
-
     return (
         <StorageCartContext.Provider
             value={{
                 state: { products, quantity, total },
-                reducers: { addProduct, reset },
+                reducers: { addProduct, resetCart },
             }}
         >
             {children}

@@ -38,8 +38,9 @@ const Navbar = () => {
                     <ListItem>
                         <StyledLink to="/">Homepage</StyledLink>
                     </ListItem>
-                    <ListItem>Products</ListItem>
-                    <ListItem>Contact</ListItem>
+                    <ListItem>
+                        <StyledLink to="/admin">Admin</StyledLink>
+                    </ListItem>
                 </List>
             </Item>
             <Item>

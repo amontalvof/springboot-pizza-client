@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { GREY, RED, WHITE } from '../../constants/colors';
 
@@ -44,4 +45,8 @@ export const Desc = styled.p`
     @media screen and (max-width: 480px) {
         font-size: 20px;
     }
+`;
+
+export const StyledLink = styled(Link)`
+    text-decoration: none;
 `;

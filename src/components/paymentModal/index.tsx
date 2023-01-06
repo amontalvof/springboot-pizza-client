@@ -1,5 +1,5 @@
 import { Form, Formik } from 'formik';
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import { FormattedNumber } from 'react-intl';
 import { GREEN, LIGHT_BLACK } from '../../constants/colors';
 import useClickOutside from '../../hooks/useClickOutside';
@@ -16,6 +16,10 @@ import {
     ModalHeader,
     Title,
 } from './styles';
+import useCreateOrder from '../../hooks/useCreateOrder';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { StorageCartContext } from '../../context/storageCart';
 
 interface IPaymentModalProps {
     total: number;
@@ -36,23 +40,43 @@ const PaymentModal = ({
     isOpenModal,
     setIsOpenModal,
 }: IPaymentModalProps) => {
-    const handleLogin = (values: IValues, { resetForm }: any) => {
+    const {
+        reducers: { resetCart },
+    } = useContext(StorageCartContext);
+    const navigate = useNavigate();
+    const { mutate } = useCreateOrder();
+
+    const handleSubmit = (values: IValues, { resetForm }: any) => {
         const data = {
             ...values,
-            total,
-            products: products.map((product) => product.id),
+            total: Number(total.toFixed(2)),
+            products,
         };
-        console.log(data);
-        resetForm();
-        setIsOpenModal(false);
+        mutate(data, {
+            onSuccess: (resp) => {
+                resetForm();
+                setIsOpenModal(false);
+                if (resp.errorMessages) {
+                    toast.error('There was an error creating the order.', {
+                        position: toast.POSITION.TOP_RIGHT,
+                        theme: 'dark',
+                    });
+                } else {
+                    resetCart();
+                    navigate(`/order/${resp.id}`);
+                }
+            },
+            onError: (err) => {
+                resetForm();
+                setIsOpenModal(false);
+            },
+        });
     };
 
     const modalRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
     useClickOutside(modalRef, () => {
-        if (isOpenModal) {
-            setIsOpenModal(false);
-        }
+        setIsOpenModal(false);
     });
 
     return (
@@ -64,7 +88,7 @@ const PaymentModal = ({
                         phone: '',
                         address: '',
                     }}
-                    onSubmit={handleLogin}
+                    onSubmit={handleSubmit}
                     validationSchema={validationSchema}
                 >
                     {() => (

@@ -21,7 +21,13 @@ export const Input = styled.input`
     padding: 0 10px;
 `;
 
+export const ErrorContainer = styled.div`
+    max-width: 300px;
+`;
+
 export const ErrorText = styled.p`
     color: ${RED};
     font-size: 12px;
+    font-weight: bold;
+    line-break: auto;
 `;

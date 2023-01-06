@@ -1,6 +1,6 @@
 import { FormattedNumber } from 'react-intl';
 import Button from '../../components/button';
-import { LIGHT_BLACK, RED } from '../../constants/colors';
+import { GREEN, LIGHT_BLACK, RED } from '../../constants/colors';
 import { useContext, useState } from 'react';
 import { StorageCartContext } from '../../context/storageCart';
 import useDisableBodyScroll from '../../hooks/useDisableBodyScroll';
@@ -30,6 +30,7 @@ const Cart = () => {
 
     const {
         state: { products },
+        reducers: { resetCart },
     } = useContext(StorageCartContext);
     const subTotal = products.reduce((acc, product) => {
         return acc + product.price * product.quantity;
@@ -140,11 +141,16 @@ const Cart = () => {
                     </div>
                     <Button
                         text="CHECKOUT NOW!"
-                        gradient={[LIGHT_BLACK, RED]}
+                        gradient={[LIGHT_BLACK, GREEN]}
                         onClick={handleCheckout}
                         style={
                             !products.length ? { cursor: 'not-allowed' } : {}
                         }
+                    />
+                    <Button
+                        text="CLEAR CART"
+                        gradient={[LIGHT_BLACK, RED]}
+                        onClick={() => resetCart()}
                     />
                 </Wrapper>
             </Right>

@@ -1,4 +1,4 @@
-import { baseUrl } from '../constants/url';
+import { baseUrl } from '../constants/misc';
 
 export const fetchWithoutToken = async <T>(
     endpoint: string,

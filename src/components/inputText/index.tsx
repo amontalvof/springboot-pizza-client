@@ -1,10 +1,10 @@
 import { useField, ErrorMessage } from 'formik';
 import React from 'react';
-import { ErrorText, Input, Item, Label } from './styles';
+import { ErrorContainer, ErrorText, Input, Item, Label } from './styles';
 
 interface IInputTextProps {
     name: string;
-    label: string;
+    label: string | React.ReactNode;
     type: 'text' | 'password';
     placeholder?: string;
     [x: string]: any;
@@ -19,9 +19,11 @@ const InputText = (props: IInputTextProps) => {
             <Input {...field} {...props} />
             <ErrorMessage name={props.name}>
                 {(msg) => (
-                    <ErrorText>
-                        <strong>ERROR:</strong> {msg}
-                    </ErrorText>
+                    <ErrorContainer>
+                        <ErrorText>
+                            <strong>ERROR:</strong> {msg}
+                        </ErrorText>
+                    </ErrorContainer>
                 )}
             </ErrorMessage>
         </Item>

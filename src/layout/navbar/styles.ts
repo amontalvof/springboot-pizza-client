@@ -26,11 +26,11 @@ export const Item = styled.div`
         justify-content: flex-end;
     }
     @media screen and (max-width: 480px) {
-        :nth-child(2) {
+        :nth-child(1) {
             display: none;
         }
 
-        :nth-child(1) {
+        :nth-child(2) {
             flex: 3;
         }
     }

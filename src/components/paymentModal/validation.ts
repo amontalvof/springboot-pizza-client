@@ -20,7 +20,7 @@ export const validationSchema = Yup.object({
         .min(5, 'The customer must be 5 characters or more.')
         .max(200, 'The address must be 200 characters or less.')
         .matches(
-            /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9,.# ]*$/,
+            /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9,.#\- ]*$/,
             'The address does not allow special characters.'
         ),
 });
