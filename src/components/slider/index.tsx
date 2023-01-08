@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import arrowl from '../../assets/img/arrowl.png';
 import arrowr from '../../assets/img/arrowr.png';
-import featured from '../../assets/img/featured.png';
-import featured2 from '../../assets/img/featured2.png';
-import featured3 from '../../assets/img/featured3.png';
 import {
     Container,
     Image,
@@ -12,7 +9,11 @@ import {
     ArrowContainer,
 } from './styles';
 
-const images = [featured, featured2, featured3];
+const images = [
+    'https://res.cloudinary.com/a03m02f92/image/upload/v1673215327/pizzas/featured_rvaqjx.png',
+    'https://res.cloudinary.com/a03m02f92/image/upload/v1673215337/pizzas/featured2_btwpss.png',
+    'https://res.cloudinary.com/a03m02f92/image/upload/v1673215347/pizzas/featured3_otpsm0.png',
+];
 
 const Slider = () => {
     const [index, setIndex] = useState(0);

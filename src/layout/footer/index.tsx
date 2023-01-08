@@ -1,11 +1,13 @@
 import { Card, Container, Image, Item, Motto, Text, Title } from './styles';
-import bg from '../../assets/img/bg.png';
 
 const Footer = () => {
     return (
         <Container>
             <Item>
-                <Image src={bg} alt="background" />
+                <Image
+                    src="https://res.cloudinary.com/a03m02f92/image/upload/v1673215306/pizzas/bg_okzjxe.png"
+                    alt="background"
+                />
             </Item>
             <Item>
                 <Card>

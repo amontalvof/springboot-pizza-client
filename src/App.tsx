@@ -1,17 +1,23 @@
 import { Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { QueryClientProvider, QueryClient } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+// import { ReactQueryDevtools } from 'react-query/devtools';
 import { IntlProvider } from 'react-intl';
 import { Footer, Navbar } from './layout';
-import { Cart, Home, Orders, PageNotFound, Product } from './pages';
 import { StorageCartProvider } from './context/storageCart';
 import { AuthProvider } from './context/auth';
 import 'react-toastify/dist/ReactToastify.css';
-import Admin from './pages/admin';
-import Login from './pages/login';
 import RequireAuth from './components/requireAuth';
 import ScrollToTop from './components/scrollToTop';
+import {
+    LazyCart,
+    LazyHome,
+    LazyProduct,
+    LazyOrders,
+    LazyPageNotFound,
+    LazyAdmin,
+    LazyLogin,
+} from './pages';
 
 const queryClient = new QueryClient();
 
@@ -25,31 +31,34 @@ const App = () => {
                         <ScrollToTop />
                         <Navbar />
                         <Routes>
-                            <Route path="/" element={<Home />} />
-                            <Route path="cart" element={<Cart />} />
+                            <Route path="/" element={<LazyHome />} />
+                            <Route path="cart" element={<LazyCart />} />
                             <Route
                                 path="admin"
                                 element={
                                     <RequireAuth>
-                                        <Admin />
+                                        <LazyAdmin />
                                     </RequireAuth>
                                 }
                             />
-                            <Route path="login" element={<Login />} />
+                            <Route path="login" element={<LazyLogin />} />
                             <Route
                                 path="product/:productId"
-                                element={<Product />}
+                                element={<LazyProduct />}
                             />
-                            <Route path="order/:orderId" element={<Orders />} />
-                            <Route path="*" element={<PageNotFound />} />
+                            <Route
+                                path="order/:orderId"
+                                element={<LazyOrders />}
+                            />
+                            <Route path="*" element={<LazyPageNotFound />} />
                         </Routes>
                         <Footer />
                     </StorageCartProvider>
                 </AuthProvider>
-                <ReactQueryDevtools
+                {/* <ReactQueryDevtools
                     initialIsOpen={false}
                     position="bottom-left"
-                />
+                /> */}
             </QueryClientProvider>
         </IntlProvider>
     );

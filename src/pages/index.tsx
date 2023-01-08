@@ -1,7 +1,33 @@
-import Home from './home';
-import Cart from './cart';
-import Product from './product';
-import Orders from './orders';
-import PageNotFound from './pageNotFound';
+import { lazy } from 'react';
 
-export { Home, Product, PageNotFound, Cart, Orders };
+const LazyCart = lazy(
+    /* webpackChunkName: "LazyCart" */ () => import('./cart')
+);
+const LazyHome = lazy(
+    /* webpackChunkName: "LazyHome" */ () => import('./home')
+);
+const LazyProduct = lazy(
+    /* webpackChunkName: "LazyProduct" */ () => import('./product')
+);
+const LazyOrders = lazy(
+    /* webpackChunkName: "LazyOrders" */ () => import('./orders')
+);
+const LazyPageNotFound = lazy(
+    /* webpackChunkName: "LazyPageNotFound" */ () => import('./pageNotFound')
+);
+const LazyAdmin = lazy(
+    /* webpackChunkName: "LazyAdmin" */ () => import('./admin')
+);
+const LazyLogin = lazy(
+    /* webpackChunkName: "LazyLogin" */ () => import('./login')
+);
+
+export {
+    LazyCart,
+    LazyHome,
+    LazyProduct,
+    LazyOrders,
+    LazyPageNotFound,
+    LazyAdmin,
+    LazyLogin,
+};
