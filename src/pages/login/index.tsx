@@ -16,7 +16,6 @@ const Login = () => {
     const redirectPath = location.state?.path || '/';
 
     const handleSubmit = (values: IUser) => {
-        console.log(values);
         auth.login(values);
         navigate(redirectPath, { replace: true });
     };
@@ -26,7 +25,7 @@ const Login = () => {
             <Wrapper>
                 <Formik
                     initialValues={{
-                        username: 'Admin',
+                        username: 'Administrator',
                         password: 'P@ssword123',
                     }}
                     onSubmit={handleSubmit}
@@ -48,7 +47,7 @@ const Login = () => {
                                 name="password"
                             />
                             <Button
-                                text="ORDER NOW"
+                                text="LOGIN"
                                 gradient={[LIGHT_BLACK, GREEN]}
                                 type="submit"
                                 style={{

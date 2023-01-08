@@ -19,9 +19,14 @@ import {
     Th,
     Td,
     Desc,
+    Tr,
+    Id,
+    Name,
+    Customer,
+    Price,
+    Status,
 } from './styles';
-
-// TODO: make admin responsive
+import { GREEN } from '../../constants/colors';
 
 const Admin = () => {
     const { isLoading: loadingProducts, data: pizzaList = [] } =
@@ -57,37 +62,40 @@ const Admin = () => {
                         <Title>Products</Title>
                         <Table>
                             <tbody>
-                                <tr>
+                                <Tr>
                                     <Th>Image</Th>
                                     <Th>Title</Th>
                                     <Th>Description</Th>
                                     <Th>Actions</Th>
-                                </tr>
+                                </Tr>
                                 {pizzaList.map((pizza: IPizza) => (
-                                    <tr key={`pizza-${pizza.id}`}>
+                                    <Tr key={`pizza-${pizza.id}`}>
                                         <Td>
                                             <Image
                                                 src={pizza.img}
                                                 alt="pizza"
                                             />
                                         </Td>
-                                        <Td>{pizza.title}</Td>
+                                        <Td>
+                                            <Name>{pizza.title}</Name>
+                                        </Td>
                                         <Td>
                                             <Desc title={pizza.description}>
                                                 {pizza.description}
                                             </Desc>
                                         </Td>
                                         <Td>
-                                            <Button>Edit</Button>
+                                            {/* <Button>Edit</Button> */}
                                             <Button
                                                 onClick={() =>
                                                     handleDelete(pizza.id)
                                                 }
+                                                disabled
                                             >
                                                 Delete
                                             </Button>
                                         </Td>
-                                    </tr>
+                                    </Tr>
                                 ))}
                             </tbody>
                         </Table>
@@ -96,14 +104,14 @@ const Admin = () => {
                         <Title>Orders</Title>
                         <Table>
                             <tbody>
-                                <tr>
+                                <Tr>
                                     <Th>Id</Th>
                                     <Th>Customer</Th>
                                     <Th>Pizzas</Th>
                                     <Th>Total</Th>
                                     <Th>Status</Th>
                                     <Th>Actions</Th>
-                                </tr>
+                                </Tr>
                                 {orderList.map((order: IOrderExtended) => {
                                     const pizzas = order.products
                                         .map((item: any) => item.name)
@@ -112,32 +120,43 @@ const Admin = () => {
                                         order.status === 'PAYMENT'
                                             ? {
                                                   cursor: 'not-allowed',
+                                                  backgroundColor: GREEN,
                                               }
-                                            : {};
+                                            : { backgroundColor: GREEN };
                                     return (
-                                        <tr key={`order-${order.id}`}>
-                                            <Td>{order.id}</Td>
-                                            <Td>{order.customer}</Td>
+                                        <Tr key={`order-${order.id}`}>
+                                            <Td>
+                                                <Id>{order.id}</Id>
+                                            </Td>
+                                            <Td>
+                                                <Customer>
+                                                    {order.customer}
+                                                </Customer>
+                                            </Td>
                                             <Td>
                                                 <Desc title={pizzas}>
                                                     {pizzas}
                                                 </Desc>
                                             </Td>
                                             <Td>
-                                                <FormattedNumber
-                                                    value={order.total}
-                                                    // eslint-disable-next-line react/style-prop-object
-                                                    style="currency"
-                                                    currency="USD"
-                                                />
+                                                <Price>
+                                                    <FormattedNumber
+                                                        value={order.total}
+                                                        // eslint-disable-next-line react/style-prop-object
+                                                        style="currency"
+                                                        currency="USD"
+                                                    />
+                                                </Price>
                                             </Td>
                                             <Td>
-                                                {toCapitalized(
-                                                    order.status.replace(
-                                                        /_/g,
-                                                        ' '
-                                                    )
-                                                )}
+                                                <Status>
+                                                    {toCapitalized(
+                                                        order.status.replace(
+                                                            /_/g,
+                                                            ' '
+                                                        )
+                                                    )}
+                                                </Status>
                                             </Td>
                                             <Td>
                                                 <Button
@@ -156,7 +175,7 @@ const Admin = () => {
                                                     Next Stage
                                                 </Button>
                                             </Td>
-                                        </tr>
+                                        </Tr>
                                     );
                                 })}
                             </tbody>

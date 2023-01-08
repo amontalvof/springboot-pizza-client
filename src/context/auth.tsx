@@ -2,30 +2,40 @@ import { createContext, useContext, useState } from 'react';
 import { IUser } from '../types/user';
 
 interface IAuthContext {
-    user: IUser | null;
+    token: string | null;
     login: (user: IUser) => void;
     logout: () => void;
 }
 
 const AuthContext = createContext<IAuthContext>({
-    user: null,
+    token: null,
     login: () => {},
     logout: () => {},
 });
 
+const getTokenFromSessionStorage = () => {
+    return sessionStorage.getItem('token');
+};
+
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
-    const [user, setUser] = useState<IUser | null>(null);
+    const [token, setToken] = useState<string | null>(
+        getTokenFromSessionStorage()
+    );
 
     const login = (user: IUser) => {
-        setUser(user);
+        const { username, password } = user;
+        const token = btoa(`${username}:${password}`);
+        sessionStorage.setItem('token', token);
+        setToken(token);
     };
 
     const logout = () => {
-        setUser(null);
+        setToken(null);
+        sessionStorage.removeItem('token');
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
+        <AuthContext.Provider value={{ token, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
-import { fetchWithoutToken } from '../helpers/fetch';
+import { fetchWithToken } from '../helpers/fetch';
 import { IOrderExtended } from '../types/order';
 
 const updateOrder = async ({
@@ -11,7 +11,7 @@ const updateOrder = async ({
     order: IOrderExtended;
 }) => {
     try {
-        const resp = await fetchWithoutToken(`orders/${orderId}`, order, 'PUT');
+        const resp = await fetchWithToken(`orders/${orderId}`, order, 'PUT');
         if (resp.errorMessages) {
             toast.error('Sorry there was an error updating the order.', {
                 position: toast.POSITION.TOP_RIGHT,

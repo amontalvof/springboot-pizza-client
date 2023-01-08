@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
-import { fetchWithoutToken } from '../helpers/fetch';
+import { fetchWithToken } from '../helpers/fetch';
 
 const deleteProduct = async ({ productId }: { productId: number }) => {
-    const resp = await fetchWithoutToken(`products/${productId}`, {}, 'DELETE');
+    const resp = await fetchWithToken(`products/${productId}`, {}, 'DELETE');
     return resp;
 };
 

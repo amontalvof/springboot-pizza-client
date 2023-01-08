@@ -26,12 +26,12 @@ export const fetchWithToken = async <T>(
     method = 'GET'
 ) => {
     const url = `${baseUrl}/${endpoint}`;
-    const token = localStorage.getItem('token') || '';
+    const token = sessionStorage.getItem('token') || '';
     if (method === 'GET') {
         const resp = await fetch(url, {
             method,
             headers: {
-                'x-token': token,
+                Authorization: `Basic ${token}`,
             },
         });
         return await resp.json();
@@ -40,7 +40,7 @@ export const fetchWithToken = async <T>(
             method,
             headers: {
                 'Content-Type': 'application/json',
-                'x-token': token,
+                Authorization: `Basic ${token}`,
             },
             body: JSON.stringify(data),
         });
